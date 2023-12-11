@@ -15,8 +15,14 @@ const TabNavigator = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarLabelStyle: {
-          color: '#8355C4',
+        tabBarStyle: {
+          backgroundColor: 'white', 
+        },
+        tabBarActiveTintColor: '#8355C4', 
+        tabBarInactiveTintColor: 'grey', 
+        tabBarShowLabel: true, 
+        tabBarItemStyle: {
+          color: 'grey', 
         },
       }}>
       <Tab.Screen
@@ -71,6 +77,7 @@ const TabNavigator = () => {
   );
 };
 
+
 const TabBarIconWithDot = ({ icon, focused }) => {
   return (
     <View style={styles.iconContainer}>
@@ -83,6 +90,7 @@ const TabBarIconWithDot = ({ icon, focused }) => {
 const styles = StyleSheet.create({
   iconContainer: {
     alignItems: 'center',
+    // backgroundColor:"pink"
   },
   dot: {
     width: 8,

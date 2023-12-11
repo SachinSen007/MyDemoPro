@@ -44,7 +44,7 @@ const HomeScreen = () => {
         <Text style={{color: '#8355C4'}}>MRI results.pdf</Text>
         {/* Add other Medical Files with icons and Text components */}
 
-        <View style={{marginLeft: 215, bottom:30}}>
+        <View style={{marginLeft: 215, bottom: 30}}>
           <Image
             source={require('../assets/icon/medicalFile.png')}
             style={{width: 40, height: 40, tintColor: '#8355C4'}}
@@ -59,10 +59,44 @@ const HomeScreen = () => {
 
       <View style={styles.iconContainer}>
         <View style={styles.iconBox}>
-          <Ionicons name="time" size={40} color="white" />
+          {/* <Ionicons name="time" size={40} color='#8355C4' /> */}
+          <Image
+            source={require('../assets/icon/plus-symbol-button.png')}
+            style={{
+              width: 20,
+              height: 20,
+              tintColor:'white',
+              borderWidth: 2,
+              borderColor: '#8355C4',
+              borderRadius: 50,
+              padding: 20,
+              backgroundColor:'#8355C4'
+            }}
+            resizeMode="contain"
+          />
+          <View  style={{marginTop:10}}>
+          <Text  style={{color:'#8355C4',fontSize:12,fontWeight:'500'}}>Schedule</Text>
+         </View>
         </View>
         <View style={styles.iconBoxCall}>
-          <Ionicons name="call" size={40} color="white" />
+          {/* <Ionicons name="call" size={40} color="white" /> */}
+          <Image
+            source={require('../assets/icon/phone.png')}
+            style={{
+              width: 20,
+              height: 20,
+              tintColor:'white',
+              borderWidth: 2,
+              borderColor: '#8355C4',
+              borderRadius: 50,
+              padding: 20,
+              backgroundColor:'#8355C4'
+            }}
+            resizeMode="contain"
+          />
+          <View  style={{marginTop:10}}>
+          <Text  style={{color:'#8355C4',fontSize:12,fontWeight:'500'}}>Call</Text>
+         </View>
         </View>
       </View>
     </View>
@@ -86,7 +120,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     marginBottom: 10,
-    marginTop:15,
+    marginTop: 15,
     marginHorizontal: 10,
     color: '#2874A6',
     fontWeight: 'bold',
@@ -120,24 +154,27 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginHorizontal: 10,
     marginTop: 20,
+    elevation: 10,
   },
   iconBox: {
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
     width: '40%', // Adjust the width as needed
-    height: '55%',
+    height: '52%',
+    elevation: 5,
   },
   iconBoxCall: {
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
     width: '40%', // Adjust the width as needed
-    height: '55%',
+    height: '52%',
+    elevation: 5,
   },
 });
 
