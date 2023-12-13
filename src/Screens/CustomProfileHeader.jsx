@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#8355C4',
     height: 70,
+   
     // paddingHorizontal: 20,
     // backgroundColor:'red'
   },

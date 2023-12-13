@@ -11,6 +11,8 @@ import {ScrollView} from 'react-native-virtualized-view';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {TextInput} from 'react-native-paper';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import EvilIcons from 'react-native-vector-icons/Ionicons';
+import CustomProfileHeader from './CustomProfileHeader';
 
 const AccountScreen = () => {
   const [gender, setGender] = useState('');
@@ -72,22 +74,40 @@ const AccountScreen = () => {
     <KeyboardAwareScrollView
       style={{flex: 1, backgroundColor: 'white'}}
       resetScrollToCoords={{x: 0, y: 0}}
-      contentContainerStyle={{padding: 20}}
+      contentContainerStyle={{}}
       scrollEnabled={true}>
-      <View style={{alignItems: 'center'}}>
+     
+      <CustomProfileHeader
+        title="Profile"
+        onNotificationPress={() => {
+          // Handle notification press
+        }}
+        onMorePress={() => {
+          // Handle more press
+        }}
+      />
+      <View style={{alignItems: 'center',marginTop:30}}>
         {/* Profile Image */}
         <Image
-          source={{uri: 'https://example.com/your-profile-image.jpg'}}
+          source={require('../assets/icon/profilepic.png')}
           style={{width: 100, height: 100, borderRadius: 50}}
         />
 
         {/* Name and Email */}
-        <Text>Name: John Doe</Text>
-        <Text>Email: john.doe@example.com</Text>
+        <Text style={{fontSize: 18, color: '#153EA8', fontWeight: 'bold'}}>
+          Jacob Gobb
+        </Text>
+        <Text style={{fontSize: 14, color: '#8355C4'}}>
+          jacob.gobb@gmail.com
+        </Text>
       </View>
 
       {/* Personal Details */}
-      <Text>Personal Details</Text>
+      <View style={{marginTop: 40, marginVertical: 10, paddingHorizontal: 20}}>
+        <Text style={{fontSize: 18, color: '#153EA8', fontWeight: 'bold'}}>
+          Personal Details
+        </Text>
+      </View>
       {/* <TextInput
         placeholder="Name"
         style={{borderWidth: 1, marginVertical: 5, padding: 10}}
@@ -101,9 +121,18 @@ const AccountScreen = () => {
         multiple={true}
         editable
         maxLength={100}
-        numberOfLines={4} // Set the number of visible lines (adjust as needed)
-        autoCorrect={false} // Disable auto-correction
-        autoCapitalize="sentences" // Set auto-capitalization to sentences
+        numberOfLines={4}
+        autoCorrect={false}
+        autoCapitalize="sentences"
+        style={{
+          width: '90%',
+          alignSelf:'center',
+          backgroundColor: 'white',
+          marginBottom: 12,
+        }}
+        activeOutlineColor="#8355C4"
+        outlineColor="#ccc"
+
         // style={{borderWidth: 1, marginVertical: 5, padding: 10}}
       />
       <TextInput
@@ -111,14 +140,18 @@ const AccountScreen = () => {
         value={surnameText}
         onChangeText={text => setSurnameText(text)}
         mode="outlined"
+        style={{width: '90%',alignSelf:'center', backgroundColor: 'white'}}
+        activeOutlineColor="#8355C4"
+        outlineColor="#ccc"
         // style={{borderWidth: 1, marginVertical: 5, padding: 10}}
       />
 
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-around',
-          marginTop: 10,
+          justifyContent:'space-evenly',
+          marginTop: 15,
+          // backgroundColor:'red'
         }}>
         {/* Gender Dropdown */}
         {/* <Text>Personal Details</Text> */}
@@ -137,17 +170,19 @@ const AccountScreen = () => {
           scrollViewProps={{maxHeight: 200, nestedScrollEnabled: true}}
           style={{
             borderColor: '#ccc',
-            borderRadius:5,
+            borderRadius: 5,
             marginBottom: 20,
             elevation: active === 1 ? 99 : 1,
             zIndex: active === 1 ? 99 : 1,
           }}
           containerStyle={{
             width: 100,
+
           }}
+          arrowIconStyle={{tintColor: '#ccc'}}
           listMode="SCROLLVIEW"
         />
-        {/* Date of Birth Picker - Add your implementation here */}
+
         {/* Date of Birth Picker */}
         <TouchableOpacity
           style={{
@@ -156,12 +191,20 @@ const AccountScreen = () => {
             borderRadius: 5,
             padding: 12,
             // marginVertical: 5,
-            width: '55%',
+            width: '58%',
             height: '70%',
             // backgroundColor:'red',
           }}
           onPress={() => setDatePickerVisibility(true)}>
-          <Text style={{color: 'black'}}>{dob ? dob : 'DOB'}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{color: 'black',}}>{dob ? dob : 'DOB'}</Text>
+            <EvilIcons
+              name="chevron-down"
+              size={20}
+              color="#ccc"
+              style={{marginLeft: 140}}
+            />
+          </View>
         </TouchableOpacity>
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
@@ -172,13 +215,17 @@ const AccountScreen = () => {
       </View>
 
       {/* Contact Details */}
-      <Text>Contact Details</Text>
+      <View style={{marginTop: 5, marginVertical: 5, paddingHorizontal: 20}}>
+        <Text style={{fontSize: 18, color: '#153EA8', fontWeight: 'bold'}}>
+          Contact Details
+        </Text>
+      </View>
       <View
         style={{
           flexDirection: 'row',
           marginTop: 10,
           // backgroundColor: 'blue',
-          justifyContent: 'space-around',
+          justifyContent: 'space-evenly',
         }}>
         {/* Country Code Dropdown */}
 
@@ -197,15 +244,16 @@ const AccountScreen = () => {
           scrollViewProps={{maxHeight: 200, nestedScrollEnabled: true}}
           style={{
             borderColor: '#ccc',
-            borderRadius:5,
+            borderRadius: 5,
             marginBottom: 20,
             elevation: active === 2 ? 99 : 1,
             zIndex: active === 2 ? 99 : 1,
           }}
           containerStyle={{
-            width: 100,
+            width: 105,
             // backgroundColor: 'orange',
           }}
+          arrowIconStyle={{tintColor: '#ccc'}}
           listMode="SCROLLVIEW"
         />
         <TextInput
@@ -213,7 +261,14 @@ const AccountScreen = () => {
           value={phoneText}
           onChangeText={text => setPhoneText(text)}
           mode="outlined"
-          style={{width: '55%', maxHeight: '80%', bottom: 5}}
+          style={{
+            width: '55%',
+            maxHeight: '80%',
+            bottom: 6,
+            backgroundColor: 'white',
+          }}
+          activeOutlineColor="#8355C4"
+          outlineColor="#ccc"
           //  style={{borderWidth: 1, marginVertical: 5, padding: 10, flex: 2}}
         />
       </View>
@@ -224,22 +279,40 @@ const AccountScreen = () => {
         value={addressText}
         onChangeText={text => setAddressText(text)}
         mode="outlined"
+        style={{
+          width: '90%',
+          alignSelf:'center',
+          // marginHorizontal: 18,
+          backgroundColor: 'white',
+          bottom: 10,
+        }}
+        activeOutlineColor="#8355C4"
+        outlineColor="#ccc"
         // style={{borderWidth: 1, marginVertical: 5, padding: 10}}
       />
-      <TextInput
-        label="Postcode"
-        value={postcodeText}
-        onChangeText={text => setPostcodeText(text)}
-        mode="outlined"
-        // style={{borderWidth: 1, marginVertical: 5, padding: 10}}
-      />
-      <TextInput
-        label="City"
-        value={cityText}
-        onChangeText={text => setCityText(text)}
-        mode="outlined"
-        // style={{borderWidth: 1, marginVertical: 5, padding: 10}}
-      />
+      <View style={{flexDirection: 'row', justifyContent:'space-evenly'}}>
+        <TextInput
+          label="Postcode"
+          value={postcodeText}
+          onChangeText={text => setPostcodeText(text)}
+          mode="outlined"
+          style={{width: '35%', marginHorizontal: 0, backgroundColor: 'white'}}
+          activeOutlineColor="#8355C4"
+          outlineColor="#ccc"
+          // style={{borderWidth: 1, marginVertical: 5, padding: 10}}
+        />
+        <TextInput
+          label="City"
+          value={cityText}
+          onChangeText={text => setCityText(text)}
+          mode="outlined"
+          style={{width: '50%', marginHorizontal:0, backgroundColor: 'white'}}
+          activeOutlineColor="#8355C4"
+          outlineColor="#ccc"
+
+          // style={{borderWidth: 1, marginVertical: 5, padding: 10}}
+        />
+      </View>
 
       {/* Country Dropdown */}
       {/* <DropDownPicker
@@ -269,24 +342,33 @@ const AccountScreen = () => {
         scrollViewProps={{maxHeight: 200, nestedScrollEnabled: true}}
         style={{
           borderColor: '#ccc',
-          borderRadius:5,
-          marginTop: 10,
-          // elevation: active === 1 ? 99 : 1,
-          // zIndex: active === 1 ? 99 : 1,
+          borderRadius: 5,
+          marginTop: 18,
+          width: '90%',
+          alignSelf:'center',
+          // marginHorizontal: 15,
+          elevation: active === 1 ? 99 : 1,
+          zIndex: active === 1 ? 99 : 1,
         }}
+        arrowIconStyle={{tintColor: '#ccc'}}
         listMode="SCROLLVIEW"
       />
 
       {/* Save Profile Button */}
       <TouchableOpacity
         style={{
-          backgroundColor: 'blue',
+          backgroundColor: '#8355C4',
           padding: 10,
-          borderRadius: 5,
-          marginTop: 10,
+          borderRadius: 25,
+          marginVertical:40,
+          // marginBottom:10,
+          width: '90%',
+          height: 45,
+          alignSelf:'center'
+          // marginHorizontal: 12,
         }}
         onPress={handlePress}>
-        <Text style={{color: 'white', textAlign: 'center'}}>Save Profile</Text>
+        <Text style={{color: 'white', textAlign: 'center', top: 5}}>NEXT</Text>
       </TouchableOpacity>
     </KeyboardAwareScrollView>
   );
