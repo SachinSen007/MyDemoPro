@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Image,
   TouchableOpacity,
   Text,
+  Modal,
+  Pressable,
+  StyleSheet,
   KeyboardAvoidingView,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -13,6 +16,8 @@ import {TextInput} from 'react-native-paper';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import EvilIcons from 'react-native-vector-icons/Ionicons';
 import CustomProfileHeader from './CustomProfileHeader';
+import ImagePicker from 'react-native-image-crop-picker';
+import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
 
 const AccountScreen = () => {
   const [gender, setGender] = useState('');
@@ -25,6 +30,7 @@ const AccountScreen = () => {
   const [addressText, setAddressText] = React.useState('');
   const [postcodeText, setPostcodeText] = React.useState('');
   const [cityText, setCityText] = React.useState('');
+  const [profileImage, setProfileImage] = useState(null);
 
   // Dropdown states
   const [openGender, setopenGender] = useState(false);
@@ -38,6 +44,11 @@ const AccountScreen = () => {
     {label: 'Female', value: 'female'},
     {label: 'Other', value: 'other'},
   ]);
+
+  const [showButtons, setShowButtons] = useState(false);
+
+  // Modal State
+  const [modalVisible, setModalVisible] = useState(false);
 
   // CountryCode Dropdown states
   const [valueCode, setValueCode] = useState(null);
@@ -61,6 +72,49 @@ const AccountScreen = () => {
   // Date of Birth Picker states
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
+
+  // Default profile image
+  const defaultProfileImage = require('../assets/icon/profilepic.png');
+
+
+  const renderButtons = () => (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        setModalVisible(!modalVisible);
+      }}
+    >
+       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View
+        style={{
+          backgroundColor: 'white',
+          padding: 20,
+          borderRadius: 10,
+          elevation: 5,
+          width: '80%', 
+        }}
+      >
+        <TouchableOpacity onPress={pickImage}>
+          <Text style={styles.modalOptionText}>Pick Image from Gallery</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={captureImage}>
+          <Text style={styles.modalOptionText}>Capture Image from Camera</Text>
+        </TouchableOpacity>
+
+        <Pressable
+          style={styles.modalCloseButton}
+          onPress={() => setModalVisible(!modalVisible)}
+        >
+          <Text style={{color: 'white'}}>Close</Text>
+        </Pressable>
+      </View>
+    </View>
+    </Modal>
+  );
+
   const handleDateConfirm = date => {
     setDob(date.toISOString().split('T')[0]);
     setDatePickerVisibility(false);
@@ -70,6 +124,78 @@ const AccountScreen = () => {
     console.log('Button Pressed');
   };
 
+  useEffect(() => {
+    checkPermissions();
+  }, []);
+
+  const handleImagePress = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const checkPermissions = async () => {
+    const permissionStatus = await checkCameraPermission();
+    if (permissionStatus === RESULTS.DENIED) {
+      requestCameraPermission();
+    }
+  };
+
+  const checkCameraPermission = async () => {
+    const permissionStatus = await check(
+      Platform.OS === 'ios'
+        ? PERMISSIONS.IOS.CAMERA
+        : PERMISSIONS.ANDROID.CAMERA,
+    );
+    return permissionStatus;
+  };
+
+  const requestCameraPermission = async () => {
+    const permissionResult = await request(
+      Platform.OS === 'ios'
+        ? PERMISSIONS.IOS.CAMERA
+        : PERMISSIONS.ANDROID.CAMERA,
+    );
+    if (permissionResult === RESULTS.GRANTED) {
+      console.log('Camera permission granted');
+    } else {
+      console.log('Camera permission denied');
+    }
+  };
+
+  const pickImage = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+      cropperCircleOverlay: true,
+      compressImageQuality: 0.7,
+    })
+      .then(image => {
+        console.log(image);
+        setProfileImage(image.path);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  const captureImage = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+      cropperCircleOverlay: true,
+      compressImageQuality: 0.7,
+    })
+      .then(image => {
+        console.log(image);
+        setProfileImage(image.path);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  console.log('11111111111 profileImage', profileImage);
   return (
     <KeyboardAwareScrollView
       style={{flex: 1, backgroundColor: 'white'}}
@@ -79,19 +205,23 @@ const AccountScreen = () => {
      
       <CustomProfileHeader
         title="Profile"
-        onNotificationPress={() => {
-          // Handle notification press
-        }}
-        onMorePress={() => {
-          // Handle more press
-        }}
       />
       <View style={{alignItems: 'center',marginTop:30}}>
         {/* Profile Image */}
-        <Image
-          source={require('../assets/icon/profilepic.png')}
-          style={{width: 100, height: 100, borderRadius: 50}}
-        />
+       
+        <TouchableOpacity onPress={handleImagePress}>
+          <Image
+            source={profileImage ? { uri: profileImage } : defaultProfileImage}
+            style={{
+              width: 100,
+              height: 100,
+              borderRadius: 50,
+              marginTop: 10,
+            }}
+          />
+        </TouchableOpacity>
+        {renderButtons()}
+        
 
         {/* Name and Email */}
         <Text style={{fontSize: 18, color: '#153EA8', fontWeight: 'bold'}}>
@@ -108,10 +238,6 @@ const AccountScreen = () => {
           Personal Details
         </Text>
       </View>
-      {/* <TextInput
-        placeholder="Name"
-        style={{borderWidth: 1, marginVertical: 5, padding: 10}}
-      /> */}
 
       <TextInput
         label="Email"
@@ -154,7 +280,6 @@ const AccountScreen = () => {
           // backgroundColor:'red'
         }}>
         {/* Gender Dropdown */}
-        {/* <Text>Personal Details</Text> */}
         <DropDownPicker
           disabled={active === 2}
           onOpen={() => setActive(1)}
@@ -315,18 +440,6 @@ const AccountScreen = () => {
       </View>
 
       {/* Country Dropdown */}
-      {/* <DropDownPicker
-        items={[
-          {label: 'USA', value: 'USA'},
-          {label: 'UK', value: 'UK'},
-          // Add more countries as needed
-        ]}
-        placeholder="Select Country"
-        containerStyle={{marginVertical: 5}}
-        value={country}
-        setValue={value => setCountry(value)}
-      /> */}
-
       <DropDownPicker
         // disabled={active === 2}
         // onOpen={() => setActive(1)}
@@ -373,5 +486,20 @@ const AccountScreen = () => {
     </KeyboardAwareScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  modalOptionText: {
+    color: 'blue',
+    marginTop: 10,
+    fontSize: 16,
+  },
+  modalCloseButton: {
+    marginTop: 20,
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#8355C4',
+    alignItems: 'center',
+  },
+});
 
 export default AccountScreen;
