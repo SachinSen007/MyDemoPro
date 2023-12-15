@@ -9,14 +9,6 @@ const CustomProfileHeader = ({ title, onNotificationPress, onMorePress }) => {
   return (
     <View style={styles.header}>
       <Text style={styles.title}>{title}</Text>
-      {/* <View style={styles.iconsContainer}>
-        <TouchableOpacity onPress={onNotificationPress}>
-          <MaterialIcons name="notifications-none" size={26} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity style={{paddingHorizontal:10}} onPress={onMorePress}>
-          <Feather name="more-vertical" style={styles.moreIcon} />
-        </TouchableOpacity>
-      </View> */}
     </View>
   );
 };

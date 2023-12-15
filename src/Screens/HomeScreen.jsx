@@ -11,10 +11,8 @@ const HomeScreen = () => {
       <CustomHeader
         title="Dashboard"
         onNotificationPress={() => {
-          // Handle notification press
         }}
         onMorePress={() => {
-          // Handle more press
         }}
       />
       <Text style={styles.sectionTitle}>Upcoming Consultations</Text>
@@ -22,7 +20,7 @@ const HomeScreen = () => {
         <Text style={{color: '#8355C4'}}>Dr. Marta Juarez</Text>
         <Text style={{color: '#8355C4'}}>Dr. Hans Gerhoff</Text>
 
-        {/* Add Stethoscope Icon and 2 more Text components */}
+       
         <View style={{marginLeft: 215, top: 10}}>
           <Image
             source={require('../assets/icon/stethoscope-icon.png')}
@@ -42,7 +40,7 @@ const HomeScreen = () => {
         <Text style={{color: '#8355C4'}}>Cardiology results.pdf</Text>
         <Text style={{color: '#8355C4'}}>Blood tests 20-02-2020.pdf </Text>
         <Text style={{color: '#8355C4'}}>MRI results.pdf</Text>
-        {/* Add other Medical Files with icons and Text components */}
+       
 
         <View style={{marginLeft: 215, bottom: 30}}>
           <Image
@@ -59,7 +57,7 @@ const HomeScreen = () => {
 
       <View style={styles.iconContainer}>
         <View style={styles.iconBox}>
-          {/* <Ionicons name="time" size={40} color='#8355C4' /> */}
+          
           <Image
             source={require('../assets/icon/plus-symbol-button.png')}
             style={{
@@ -79,7 +77,7 @@ const HomeScreen = () => {
          </View>
         </View>
         <View style={styles.iconBoxCall}>
-          {/* <Ionicons name="call" size={40} color="white" /> */}
+         
           <Image
             source={require('../assets/icon/phone.png')}
             style={{
@@ -128,8 +126,6 @@ const styles = StyleSheet.create({
     // marginVertical:10
   },
   boxContainer: {
-    // borderWidth: 1,
-    // borderColor: 'gray',
     padding: 20,
     //  paddingHorizontal:20,
     marginTop: 10,
@@ -139,14 +135,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 5,
     backgroundColor: 'white',
-    // shadowColor: "#000000",
-    // shadowOpacity: 0.18,
-    // shadowRadius: 2,
-    // shadowOffset: {
-    //   height: 1,
-    //   width: 1
-    // }
-
     // backgroundColor:'red'
   },
   iconContainer: {
@@ -162,7 +150,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    width: '40%', // Adjust the width as needed
+    width: '40%', 
     height: '52%',
     elevation: 5,
   },
@@ -172,7 +160,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    width: '40%', // Adjust the width as needed
+    width: '40%', 
     height: '52%',
     elevation: 5,
   },

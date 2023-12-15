@@ -259,7 +259,7 @@ const AccountScreen = () => {
         activeOutlineColor="#8355C4"
         outlineColor="#ccc"
 
-        // style={{borderWidth: 1, marginVertical: 5, padding: 10}}
+       
       />
       <TextInput
         label="Surname"
@@ -269,7 +269,7 @@ const AccountScreen = () => {
         style={{width: '90%',alignSelf:'center', backgroundColor: 'white'}}
         activeOutlineColor="#8355C4"
         outlineColor="#ccc"
-        // style={{borderWidth: 1, marginVertical: 5, padding: 10}}
+       
       />
 
       <View
@@ -394,7 +394,6 @@ const AccountScreen = () => {
           }}
           activeOutlineColor="#8355C4"
           outlineColor="#ccc"
-          //  style={{borderWidth: 1, marginVertical: 5, padding: 10, flex: 2}}
         />
       </View>
 
@@ -413,7 +412,6 @@ const AccountScreen = () => {
         }}
         activeOutlineColor="#8355C4"
         outlineColor="#ccc"
-        // style={{borderWidth: 1, marginVertical: 5, padding: 10}}
       />
       <View style={{flexDirection: 'row', justifyContent:'space-evenly'}}>
         <TextInput
@@ -424,7 +422,6 @@ const AccountScreen = () => {
           style={{width: '35%', marginHorizontal: 0, backgroundColor: 'white'}}
           activeOutlineColor="#8355C4"
           outlineColor="#ccc"
-          // style={{borderWidth: 1, marginVertical: 5, padding: 10}}
         />
         <TextInput
           label="City"
@@ -435,7 +432,6 @@ const AccountScreen = () => {
           activeOutlineColor="#8355C4"
           outlineColor="#ccc"
 
-          // style={{borderWidth: 1, marginVertical: 5, padding: 10}}
         />
       </View>
 
@@ -462,6 +458,11 @@ const AccountScreen = () => {
           // marginHorizontal: 15,
           elevation: active === 1 ? 99 : 1,
           zIndex: active === 1 ? 99 : 1,
+        }}
+        dropDownContainerStyle={{
+          // backgroundColor: "#dfdfdf",
+          width: "90%",
+          alignSelf: "center",
         }}
         arrowIconStyle={{tintColor: '#ccc'}}
         listMode="SCROLLVIEW"
